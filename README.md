@@ -29,3 +29,48 @@ HOW TO RUN:
 3. Access the API in browser
    # access the API by navigating to
        http://localhost:3000
+   --------------------------------------------------------------------------------------------
+4. install minikube and kubernetes-cli as per you OS and build the docker-image with name hello-node:v1
+   # build
+       docker build -t hello-node:v1 .
+   
+   # run the minikube
+       minikube start
+   
+   # Ensure Metrics Server is installed in your Minikube cluster
+       minikube addons enable metrics-server
+   
+   # apply the deployment of deployment.yaml, service.yaml and hpa.yaml files
+       kubectl apply -f deployment.yaml
+   
+       kubectl apply -f service.yaml
+   
+       kubectl apply -f hpa.yaml
+   
+   # check the pods are runnig or not
+       kubectl get pods
+
+5. download and install hey from github
+   # Install hey
+       go get -u github.com/rakyll/hey
+   
+   # get the minicube ip
+       minikube ip
+   
+   # apply the load 
+       hey -c 50 -n 1000 http://$(minikube ip):3000
+
+   # run the hpa command to check whether the load is building or not
+       kubectl get hpa
+
+   # observer the Autoscaling with get pods command
+       kubectl get pods 
+
+
+
+
+
+
+
+   
+
