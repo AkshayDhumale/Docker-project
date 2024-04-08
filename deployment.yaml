@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: hello-node
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: hello-node
@@ -17,3 +17,10 @@ spec:
           image: akshaydhumale/hello-node:v1
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: "0.50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
