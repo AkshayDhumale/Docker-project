@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: hello-node
-          image: hello-node:v1
+          image: akshaydhumale/hello-node:v1
           ports:
             - containerPort: 3000
