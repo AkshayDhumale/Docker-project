@@ -1,0 +1,14 @@
+config:
+  ## The datasource properties on config are passed through helm tpl function.
+  ## ref: https://helm.sh/docs/developing_charts/#using-the-tpl-function
+  datasource:
+    # Specify one of both datasource or datasourceSecret
+    host: "10.107.106.155"
+    user: postgres
+    password: UAiJI0d7d9
+
+serviceMonitor:
+  # When set true then use a ServiceMonitor to configure scraping
+  enabled: true
+  labels:
+    release: grafana
