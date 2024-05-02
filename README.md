@@ -64,10 +64,16 @@ HOW TO RUN:
        kubectl get hpa
 
    # observer the Autoscaling with get pods command
-       kubectl get pods 
+       kubectl get pods
 
+# Monitoring PostgreSQL Using Prometheus & Grafana with HELM charts
 
+# 1. Install helm
+Helm is a package manager for Kubernetes, which is an open-source platform designed to automate deploying, scaling, and operating application containers. Helm helps users manage Kubernetes applications by defining, installing, and upgrading even the most complex Kubernetes applications. It uses charts, which are packages of pre-configured Kubernetes resources.
 
+The official website for Helm is: https://helm.sh/docs/intro/install/
+
+download based on your OS.
 
 
 
