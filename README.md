@@ -73,10 +73,32 @@ Helm is a package manager for Kubernetes, which is an open-source platform desig
 
 The official website for Helm is: https://helm.sh/docs/intro/install/
 
-download based on your OS.
+download helm based on your OS.
 
+# 2. Install Prometheus and Grafana Using helm-charts
+Referance Documentation is Below.
+https://github.com/prometheus-community/helm-charts/
 
+The kube-prometheus-stack is a collection of Kubernetes manifests, Grafana dashboards, and Prometheus rules combined with community best practices for monitoring Kubernetes clusters using Prometheus and Grafana. It includes a set of pre-configured monitoring components such as Prometheus, Grafana, Alertmanager, and kube-state-metrics, among others, that are commonly used for monitoring Kubernetes environments.
 
+The kube-prometheus-stack is often used by Kubernetes administrators and operators to implement robust monitoring solutions for their clusters.
 
+follow the below steps to install Prometheus & Grafana
+
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo add grafana https://grafana.github.io/helm-charts
+    helm repo update
+
+    kubectl create namespace monitoring
+    kubectl config set-context --current --namespace=monitoring
+
+    helm install prometheus prometheus-community/kube-prometheus-stack
+    helm upgrade --install grafana prometheus-community/kube-prometheus-stack
+    
+Use Port-forwarding to access the the Prometheus & Grafana over browser
+
+    kubectl get svc
+    kubectl port-forward svc/postgres-kube-prometheus-prometheus 9090
+    kubectl port-forward svc/grafana 3000:80
    
 
