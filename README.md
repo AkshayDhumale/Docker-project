@@ -100,5 +100,46 @@ Use Port-forwarding to access the the Prometheus & Grafana over browser
     kubectl get svc
     kubectl port-forward svc/postgres-kube-prometheus-prometheus 9090
     kubectl port-forward svc/grafana 3000:80
-   
 
+# 3. Install PostgreSQL using bitnami Helm-chart
+There are 3 ways you can deploy the persistent database
+
+1. Using bitnami Helm-chart
+2. Using deployment with persistent volume and persistent volume claim
+3. Using statefulSet with Storage Class
+
+The Bitnami PostgreSQL chart is a Helm chart provided by Bitnami, a company that specializes in packaging, deploying, and managing applications in various environments. The Bitnami PostgreSQL chart is specifically designed to simplify the deployment of PostgreSQL, an open-source relational database management system, on Kubernetes clusters using Helm.
+
+By using the Bitnami PostgreSQL chart, users can streamline the process of deploying and managing PostgreSQL instances on Kubernetes, making it easier to set up and maintain databases for their applications.
+
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm install postgresql-dev bitnami/postgresql
+    kubectl get pods
+get the secret from secrets.yaml and decode the password with base64
+
+    kubectl get secret/postgresql-dev -oyaml
+    echo OTYwV0FRemZHZA== | base64 -d
+Login to the database and create a sample table and data
+
+    kubectl exec -it pod/postgresql-dev-0 sh
+    
+    POSTGRES_PASSWORD="UAiJI0d7d9"
+    
+    PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+
+    CREATE DATABASE testdb;
+
+    CREATE TABLE hello_world 
+    (
+    region      text,
+    country     text,
+    year        int,
+    production  int,
+    consumption int
+    );
+
+    INSERT INTO hello_world (region, country, year, production, consumption) VALUES ('America', 'USA', 1998, 2014, 12897);
+change the type of svc/postgresql-dev to LoadBalancer so to access over Grafana
+
+    kubectl get svc
+    kubectl edit svc/postgresql-dev
