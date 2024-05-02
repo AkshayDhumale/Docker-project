@@ -143,3 +143,19 @@ change the type of svc/postgresql-dev to LoadBalancer so to access over Grafana
 
     kubectl get svc
     kubectl edit svc/postgresql-dev
+
+# 4. Install Prometheus Postgres Exporter
+In Kubernetes, an exporter typically refers to a type of application or tool that collects metrics or other data from a Kubernetes cluster or its components and exposes them in a format that can be consumed by monitoring systems like Prometheus.
+
+install the exporter and apply the changes postgress-exporter-values.yaml
+
+    helm upgrade --install postgres-exporter prometheus-community/prometheus-postgres-exporter -f postgress-exporter-values.yaml
+
+    kubectl port-forward svc/postgres-exporter-prometheus-postgres-exporter 8080:80
+
+# 5. Install Prometheus Exporter Dashboard  
+
+    https://grafana.com/grafana/dashboards/12485-postgresql-exporter/
+   Add the below id as Grafana Dashboards and monitor Postgres DB 
+    
+        12485
